@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!-- 각 리스트에 exView 페이지로 이동하는 링크 걸기 -->
+    <!--
+    <ul>
+        <li th:each="dto : ${list}">
+            <a th:href="@{/sample/exView}">[[${dto}]]</a>
+        </li>
+    </ul>
+    -->
+
+    <!-- 각 리스트에 sno값을 가져와서 exView?sno= sno값으로 링크 걸기 -->
+    <!--
+    <ul>
+        <li th:each="dto : ${list}">
+            <a th:href="@{/sample/exView(sno=${dto.sno})}">[[${dto}]]</a>
+        </li>
+    </ul>
+    -->
+
+    <!-- 숫자 & 날짜 포맷팅 -->
+    <ul>
+        <li th:each="dto : ${list}">
+            [[${dto.sno}]] --- [[${#temporals.format(dto.regTime, 'yyyy/MM/dd')}]]
+        </li>
+    </ul>
+
+</body>
+</html>
