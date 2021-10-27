@@ -207,4 +207,22 @@ public class GuestbookRepositoryTests {
         Guestbook(gno=218, title=Title 218, content=Content 218, writer=user 8)
     */
 
+
+    @Test
+    public void testQuery() {
+        Pageable pageable = PageRequest.of(0,10, Sort.by("gno").ascending());
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+        String keyword = "1";
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanExpression exTitle = qGuestbook.title.contains(keyword); // contains == 쿼리문의 like
+        BooleanExpression exContent = qGuestbook.content.contains(keyword);
+        BooleanExpression exAll = exTitle.or(exContent);
+        builder.and(exAll);
+        builder.and(qGuestbook.gno.gt(0L));
+        Page<Guestbook> result = guestbookRepository.findAll(builder, pageable);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
+
 }
